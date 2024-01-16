@@ -1,0 +1,33 @@
+// 자바 어플리케이션을 빌드해서 독립 실행 가능한 JAP 파일을 만들어준다.
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+// 애플리케이션 메타데이터
+group = 'com.ziggy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+tasks.named('bootBuildImage') {
+    builder = 'paketobuildpacks/builder-jammy-base:latest'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

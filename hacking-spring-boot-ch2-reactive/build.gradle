@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.ziggy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 스프링 데이터 몽고디비 포함, 리액티브 버전이 들어있다.
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    // 내장형 몽고디비 도구, 테스트에 주로 사용, 초기 설계 단계에서 데이터 스토어로 사용가능
+    implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.0.0'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // 전통적인 몽고디비 ㄷ라이버 테스트 데이터 로딩 시 사용
+    implementation 'org.mongodb:mongodb-driver-sync'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
